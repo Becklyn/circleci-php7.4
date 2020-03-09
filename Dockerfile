@@ -1,4 +1,4 @@
-FROM circleci/php:7.4-browsers
+FROM circleci/php:7.4.3-browsers
 
 RUN sudo -E apt-get update && \
     sudo -E apt-get install -y libmagickwand-dev --no-install-recommends && \
