@@ -6,7 +6,7 @@ RUN sudo -E php -r "copy('https://raw.githubusercontent.com/composer/getcomposer
     sudo -E php -r "unlink('composer-setup.php');" && \
     sudo -E rm /usr/local/bin/composer && \
     sudo -E mv composer.phar /usr/local/bin/composer && \
-    sudo -E chown -R ${USER}:${GROUP} ~/.composer/
+    sudo -E chown -R circleci:circleci ~/.composer
 
 RUN sudo -E apt-get update && \
     sudo -E apt-get install -y libmagickwand-dev --no-install-recommends && \
@@ -28,6 +28,6 @@ RUN sudo -E docker-php-ext-install pdo_mysql mysqli && \
 RUN sudo -E curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash - && \
     sudo -E apt-get install -y nodejs build-essential && \
     sudo -E npm i -g npm node-gyp && \
-    sudo -E chown -R ${USER}:${GROUP} ~/.npm/_cacache/
+    sudo -E chown -R circleci:circleci ~/.npm
 
 RUN sudo -E -- sh -c 'touch /usr/local/etc/php/conf.d/docker-php-memlimit.ini; echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini'
