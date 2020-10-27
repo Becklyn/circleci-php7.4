@@ -5,7 +5,8 @@ RUN sudo -E php -r "copy('https://raw.githubusercontent.com/composer/getcomposer
     sudo -E php composer-setup.php --version=2.0.2 && \
     sudo -E php -r "unlink('composer-setup.php');" && \
     sudo -E rm /usr/local/bin/composer && \
-    sudo -E mv composer.phar /usr/local/bin/composer
+    sudo -E mv composer.phar /usr/local/bin/composer && \
+    sudo -E chown -R ${USER}:${GROUP} ~/.composer/
 
 RUN sudo -E apt-get update && \
     sudo -E apt-get install -y libmagickwand-dev --no-install-recommends && \
