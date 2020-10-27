@@ -27,6 +27,7 @@ RUN sudo -E docker-php-ext-install pdo_mysql mysqli && \
 
 RUN sudo -E curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash - && \
     sudo -E apt-get install -y nodejs build-essential && \
-    sudo -E npm i -g npm node-gyp
+    sudo -E npm i -g npm node-gyp && \
+    sudo -E chown -R ${USER}:${GROUP} ~/.npm/_cacache/
 
 RUN sudo -E -- sh -c 'touch /usr/local/etc/php/conf.d/docker-php-memlimit.ini; echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini'
