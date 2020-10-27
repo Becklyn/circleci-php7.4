@@ -24,7 +24,7 @@ RUN sudo -E docker-php-ext-install pdo_mysql mysqli && \
 RUN sudo -E docker-php-ext-install pdo_mysql mysqli && \
     sudo -E docker-php-ext-enable pdo_mysql mysqli
 
-RUN sudo -E curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash - && \
+RUN sudo -E curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash - && \
     sudo -E apt-get install -y nodejs build-essential && \
     sudo -E npm i -g npm node-gyp
 
