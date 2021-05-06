@@ -2,11 +2,11 @@ FROM circleci/php:7.4-browsers
 
 ## Override CircleCI's Composer v1 with v2
 RUN sudo -E php -r "copy('https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer', 'composer-setup.php');" && \
-    sudo -E php composer-setup.php --version=2.0.2 && \
+    sudo -E php composer-setup.php --version=2.0.13 && \
     sudo -E php -r "unlink('composer-setup.php');" && \
     sudo -E rm /usr/local/bin/composer && \
     sudo -E mv composer.phar /usr/local/bin/composer && \
-    sudo -E chown -R circleci:circleci /home/circleci/.composer
+    sudo -E chown -R circleci:circleci /home/circleci/.config/composer
 
 RUN sudo -E apt-get update && \
     sudo -E apt-get install -y libmagickwand-dev --no-install-recommends && \
@@ -25,12 +25,16 @@ RUN sudo -E docker-php-ext-install pdo_mysql mysqli && \
 RUN sudo -E docker-php-ext-install pdo_mysql mysqli && \
     sudo -E docker-php-ext-enable pdo_mysql mysqli
 
-RUN sudo -E curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && \
+RUN sudo -E apt-get update && \
+    sudo -E apt-get install -y --no-install-recommends apt-utils
+
+RUN sudo -E curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     sudo -E apt-get install -y nodejs build-essential && \
     sudo -E npm i -g npm node-gyp && \
     sudo -E chown -R circleci:circleci /home/circleci/.npm
 
 RUN sudo -E -- sh -c 'touch /usr/local/etc/php/conf.d/docker-php-memlimit.ini; echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini'
+RUN sudo -E -- sh -c 'echo "\n\n# NPM/NPX Settings\nexport npm_config_yes=true" >> /home/circleci/.bashrc'
 
 # Somehow the permissions for this directory are set to `root:root`, which we need to change to `circleci:circleci`
 # to fix some checkout errors that may also affect static code analysis scanning against old, faulty files.
