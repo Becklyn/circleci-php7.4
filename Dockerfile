@@ -35,6 +35,7 @@ RUN sudo -E curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
 
 RUN sudo -E -- sh -c 'touch /usr/local/etc/php/conf.d/docker-php-memlimit.ini; echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini'
 RUN sudo -E -- sh -c 'echo "\n\n# NPM/NPX Settings\nexport npm_config_yes=true" >> /home/circleci/.bashrc'
+RUN sudo -E -- sh -c 'echo "\n\n# NPM/NPX Settings\nexport npm_config_yes=true" >> /home/circleci/.profile'
 
 # Somehow the permissions for this directory are set to `root:root`, which we need to change to `circleci:circleci`
 # to fix some checkout errors that may also affect static code analysis scanning against old, faulty files.
