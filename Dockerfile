@@ -13,6 +13,10 @@ RUN sudo -E apt-get update && \
     sudo -E pecl install imagick && \
     sudo -E docker-php-ext-enable imagick
 
+RUN sudo -E pecl install pcov && \
+    sudo -E docker-php-ext-enable pcov && \
+    sudo -E rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 RUN sudo -E apt-get update && \
     sudo -E apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
     sudo -E docker-php-ext-install bcmath && \
